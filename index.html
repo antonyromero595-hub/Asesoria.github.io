@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asesoría Académica</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Barra de navegación -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">Asesoría Académica</div>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="#inicio" class="nav-link">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a href="#servicios" class="nav-link">Servicios</a>
+        </li>
+        <li class="nav-item">
+          <a href="#cursos" class="nav-link">Cursos</a>
+        </li>
+        <li class="nav-item">
+          <a href="#tutores" class="nav-link">Únete</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+
+<script>
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+  // Calcular altura real de la navbar PRIMERO
+  const navbarHeight = document.querySelector('.navbar').offsetHeight;
+  document.documentElement.style.setProperty('--navbar-height', `${navbarHeight}px`);
+  
+  // Luego inicializar el controlador de navbar
+  new NavbarController();
+});
+
+// Control de la navbar dinámica
+class NavbarController {
+  constructor() {
+    this.navbar = document.querySelector('.navbar');
+    this.lastScrollY = window.scrollY;
+    this.scrollThreshold = 100; // Pixeles necesarios para activar
+    this.isAtTop = true;
+    
+    this.init();
+  }
+  
+  init() {
+    // Evento de scroll
+    window.addEventListener('scroll', this.handleScroll.bind(this));
+    
+    // Evento para mostrar al poner cursor en la parte superior
+    document.addEventListener('mousemove', this.handleMouseMove.bind(this));
+    
+    // Mostrar navbar al cargar la página
+    this.navbar.classList.add('visible');
+  }
+  
+  handleScroll() {
+    const currentScrollY = window.scrollY;
+    
+    // Verificar si estamos en la parte superior
+    this.isAtTop = currentScrollY < 50;
+    
+    if (this.isAtTop) {
+      // Si estamos en la parte superior, mostrar navbar
+      this.showNavbar();
+    } else if (currentScrollY > this.lastScrollY && currentScrollY > this.scrollThreshold) {
+      // Scroll hacia abajo - ocultar
+      this.hideNavbar();
+    } else if (currentScrollY < this.lastScrollY) {
+      // Scroll hacia arriba - mostrar
+      this.showNavbar();
+    }
+    
+    this.lastScrollY = currentScrollY;
+  }
+  
+  handleMouseMove(e) {
+    // Mostrar navbar cuando el cursor está en los 50px superiores
+    if (e.clientY < 100 && !this.isAtTop) {
+      this.showNavbar();
+      this.navbar.classList.add('top-hover');
+    } else {
+      this.navbar.classList.remove('top-hover');
+    }
+  }
+  
+  hideNavbar() {
+    this.navbar.classList.remove('visible', 'top-hover');
+    this.navbar.classList.add('hidden');
+  }
+  
+  showNavbar() {
+    this.navbar.classList.remove('hidden');
+    this.navbar.classList.add('visible');
+  }
+}
+</script>
+
+
+
+
+
+  <!-- Sección de Inicio/Hero con imagen de fondo -->
+  <section id="inicio" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Asesoría Académica</h1>
+      <p>Somos un grupo de estudiantes que está dispuesto a completar ese enfoque de estudio particular en el curso o área que necesites ayuda.</p>
+    </div>
+  </section>
+
+  <!-- Sección de Pregunta Interactiva -->
+  <section class="interactive-question">
+    <div class="container">
+      <h2>¿Qué dificultad estás enfrentando?</h2>
+      <p class="subtitle">Identificamos tu situación para brindarte la mejor solución</p>
+      
+      <div class="options-grid">
+        <div class="option-card">
+          <div class="option-icon">⏰</div>
+          <h3>Falta de tiempo</h3>
+          <p>Entre trabajo y clases, no encuentras momentos para estudiar adecuadamente.</p>
+        </div>
+        
+        <div class="option-card">
+          <div class="option-icon">📚</div>
+          <h3>No entiendo al profesor</h3>
+          <p>Su método de enseñanza no se ajusta a tu forma de aprender.</p>
+        </div>
+        
+        <div class="option-card">
+          <div class="option-icon">🔍</div>
+          <h3>Material deficiente</h3>
+          <p>No cuentas con los recursos adecuados para estudiar efectivamente.</p>
+        </div>
+      </div>
+      
+      <div class="solution-cta">
+        <p>¡Te ayudamos con cualquiera de estos problemas!</p>
+        <a href="#cursos" class="cta-button">Encontrar mi solución</a>
+      </div>
+    </div>
+  </section>
+
+
+  
+  <!-- Sección de Asesores -->
+  <section id="servicios" class="asesores">
+    <div class="container asesores-grid">
+      <!-- Texto -->
+      <div class="asesores-texto">
+        <h2>ASESORES</h2>
+        <p>
+          Te ayudamos a comprender los temas más complejos con clases 
+          <strong>personalizadas</strong>, ejemplos prácticos y un enfoque claro.
+        </p>
+        <ul class="asesores-lista">
+          <li>👨‍🏫 Tutores especializados en Matemática, Inglés y Programación.</li>
+          <li>📘 Material de apoyo en PDF y recursos interactivos.</li>
+          <li>📈 Seguimiento de tu progreso en cada sesión.</li>
+        </ul>
+      </div>
+
+      <!-- Imagen -->
+      <div class="asesores-imagen">
+        <img src="img/imagen01.jpg" alt="Estudiante resolviendo problemas matemáticos">
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Cursos -->
+  <section id="cursos" class="cursos">
+    <div class="container">
+      <h2>CURSOS</h2>
+      
+      <div class="cursos-grid">
+        <!-- Curso de Matemática -->
+        <div class="curso-card">
+          <h3>Matemática</h3>
+          <p>Refuerza tus conocimientos en álgebra, geometría, cálculo y más.</p>
+          <a href="asesores/asesores_matemática.html" class="curso-btn">Seleccionar</a>
+        </div>
+        
+        <!-- Curso de Inglés -->
+        <div class="curso-card">
+          <h3>Inglés</h3>
+          <p>Mejora tu gramática, vocabulario y habilidades de comunicación.</p>
+          <a href="asesores/asesores_ingles.html" class="curso-btn">Seleccionar</a>
+        </div>
+        
+        <!-- Curso de Programación -->
+        <div class="curso-card">
+          <h3>Programación</h3>
+          <p>Aprende a programar desde cero y mejora en diferentes lenguajes.</p>
+          <a href="asesores/asesores_programacion.html" class="curso-btn">Seleccionar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preguntas frecuentes -->
+  <section class="faq">
+    <div class="container">
+      <h2>Preguntas Frecuentes</h2>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3>💰 ¿Cuánto cuesta una asesoría?</h3>
+          <p>El precio depende de la materia y la duración de la clase.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>💳 ¿Qué métodos de pago aceptan?</h3>
+          <p>Aceptamos transferencias bancarias y por ahora yape.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>💻 ¿Las clases son virtuales o presenciales?</h3>
+          <p>Actualmente todas nuestras clases son 100% online a través de Google Meet o Zoom.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>📚 ¿Qué materias ofrecen?</h3>
+          <p>Contamos con tutores especializados en Matemáticas, Inglés y Programación.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>👨‍🏫 ¿Quiénes pueden ser tutores?</h3>
+          <p>Estudiantes universitarios o egresados recientes con buen dominio del tema y habilidades para enseñar.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>📱 ¿Cómo me inscribo para enseñar?</h3>
+          <p>Ingresa en la sección "Únete" si quieres enseñar, o contáctanos por WhatsApp si buscas asesoría.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Únete como Tutor -->
+  <section id="tutores" class="tutor">
+    <div class="container tutor-grid">
+      
+      <!-- Texto -->
+      <div class="tutor-texto">
+        <h2> TRABAJA CON NOSOTROS </h2>
+
+        <p>
+          Forma parte de nuestro equipo de <strong>tutores especializados</strong>. 
+          Comparte tu conocimiento, ayuda a otros estudiantes a crecer 
+          y gana experiencia profesional mientras generas ingresos.
+        </p>
+        
+        <ul class="tutor-lista">
+          <li>👨‍🏫 Comparte lo que sabes.</li>
+          <li>🌍 Conecta con estudiantes de diferentes niveles.</li>
+        </ul>
+      </div>
+
+      <!-- Tarjeta -->
+      <div class="tutor-card">
+        <h3>Únete como Tutor</h3>
+        <p>
+          Postula ahora y comienza a enseñar en nuestra comunidad educativa.
+        </p>
+        <a href="tutores/tutores.html" class="tutor-btn">¡Postular!</a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Pie de página -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Asesoría Académica. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>
